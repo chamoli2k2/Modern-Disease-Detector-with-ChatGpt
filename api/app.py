@@ -34,7 +34,7 @@ def similar(dis):
     return final_list
 
 # main route where all the computation occur
-@app.route('/data', methods=['POST'])
+@app.route('/api/data', methods=['POST'])
 def get_data():
     data = request.json
     user_symptoms = data.get('selectedDiseases', [])
@@ -55,4 +55,4 @@ def get_data():
     return jsonify(result)  # Send the result back to the frontend
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug = True, host="0.0.0.0", port=5000)
