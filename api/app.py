@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os  # Import the os module to access environment variables
 from sklearn.metrics.pairwise import cosine_similarity
-
 
 import pandas as pd
 import pickle
@@ -17,42 +17,48 @@ with open('encoder.pkl', 'rb') as file:
 # Loading all symptoms
 all_symptoms = pickle.load(open('all_symptoms', 'rb'))
 
-
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-# function to have similar disease
+# function to have a similar disease
 def similar(dis):
     data = pickle.load(open('data', 'rb'))
-    similarity = pd.read_csv('similarity.csv',header=None)
+    similarity = pd.read_csv('similarity.csv', header=None)
     idx = data.index(dis)
     distances = similarity[idx]
-    dis_list = sorted(list(enumerate(distances)),reverse=True,key=lambda x:x[1])[1:4]
-    final_list=[]
+    dis_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:4]
+    final_list = []
     for i in dis_list:
         final_list.append(data[i[0]])
     return final_list
 
-# main route where all the computation occur
+# Home Route
+@app.route('/')
+def hello_world():
+    return 'Hello, World! This is a basic Flask app.'
+
+# main route where all the computation occurs
 @app.route('/api/data', methods=['POST'])
 def get_data():
     data = request.json
     user_symptoms = data.get('selectedDiseases', [])
     print("Data received")
-    
+
     # Process the data as needed
-    inp = {col : 0 for col in all_symptoms }
+    inp = {col: 0 for col in all_symptoms}
 
     for dis in user_symptoms:
-        inp.update({dis : 1})
+        inp.update({dis: 1})
 
-    inp = pd.DataFrame(inp , index=[0])
+    inp = pd.DataFrame(inp, index=[0])
     ans = encoder.inverse_transform(model.predict(inp))[0]
-    
+
     final_list = similar(ans)
     print(final_list)
-    result = {'prediction': ans, 'similarDisease': final_list}  # Create a JSON object with the prediction result
-    return jsonify(result)  # Send the result back to the frontend
+    result = {'prediction': ans, 'similarDisease': final_list}
+    return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(debug = True, host="0.0.0.0", port=5000)
+    # Use the provided PORT environment variable if available, otherwise use port 5000
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host="0.0.0.0", port=port)
