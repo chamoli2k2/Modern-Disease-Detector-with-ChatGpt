@@ -18,7 +18,8 @@ with open('encoder.pkl', 'rb') as file:
 all_symptoms = pickle.load(open('all_symptoms', 'rb'))
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+# Enable CORS for only the specified origin
+CORS(app, resources={r"/api/*": {"origins": "https://moderndiseasedetector.onrender.com"}})
 
 # function to have a similar disease
 def similar(dis):
@@ -46,19 +47,23 @@ def get_data():
 
     # Process the data as needed
     inp = {col: 0 for col in all_symptoms}
+    print("Process the data")
 
     for dis in user_symptoms:
         inp.update({dis: 1})
-
+        
     inp = pd.DataFrame(inp, index=[0])
     ans = encoder.inverse_transform(model.predict(inp))[0]
-
+    print(ans)
+    
+    print("Entering in similar ans")
     final_list = similar(ans)
     print(final_list)
+    
     result = {'prediction': ans, 'similarDisease': final_list}
     return jsonify(result)
 
 if __name__ == "__main__":
     # Use the provided PORT environment variable if available, otherwise use port 5000
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 10000))
     app.run(debug=True, host="0.0.0.0", port=port)

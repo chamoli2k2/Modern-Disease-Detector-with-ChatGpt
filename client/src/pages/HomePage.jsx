@@ -29,7 +29,7 @@ export default function HomePage() {
   // Handle the submit button click
   const handleSubmit = async () => {
     try {
-      const response = await fetch('/api/data', {
+      const response = await fetch('https://moderndiseasedetectorbackend.onrender.com/api/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export default function HomePage() {
         navigate('/result', { state : { DiseaseName : DiseaseName, similarDisease : similarDisease } }); // Navigate to 'other-route' and pass data
         console.log('Data sent successfully!');
       } else {
-        console.error('Failed to send data.');
+        console.error('Some error is Comming as response');
       }
     } catch (error) {
       console.error('Error:', error);
