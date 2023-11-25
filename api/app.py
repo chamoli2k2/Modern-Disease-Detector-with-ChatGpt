@@ -8,10 +8,10 @@ import pickle
 import json
 
 # Load the model from a saved file
-with open('Project_model.pkl', 'rb') as file:
+with open('../model/Project_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
-with open('encoder.pkl', 'rb') as file:
+with open('../model/encoder.pkl', 'rb') as file:
     encoder = pickle.load(file)
 
 # Loading all symptoms
