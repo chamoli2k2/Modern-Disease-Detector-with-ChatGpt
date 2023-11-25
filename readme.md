@@ -42,6 +42,48 @@ The Machine Learning Disease Prediction Web App is a comprehensive health platfo
 **Responsive Design:**
    - The use of React and Vite ensures a responsive design, making the app accessible across various devices and screen sizes.
 
+## Methodology
+
+**Data Collection:**
+   - Gather a diverse dataset containing symptoms and corresponding disease labels.
+   - Ensure data quality and annotation accuracy.
+
+**Data Preprocessing:**
+   - Handle missing data and outliers.
+   - Remove duplicate rows.
+
+**Feature Selection/Dimensionality Reduction:**
+   - Use techniques like feature selection or dimensionality reduction (e.g., Principal Component Analysis) to manage the high-dimensional symptom data.
+
+**Model Selection:**
+   - Choose appropriate machine learning models for disease detection.
+   - Options may include Classical Machine Learning, Random Forest, Support Vector Machine, Gradient Boosting, etc.
+
+**Splitting Dataset:**
+   - Split the dataset into training and test datasets.
+
+**Model Training:**
+   - Train different models on the training dataset.
+
+**Model Evaluation:**
+   - Evaluate different model performance using cross-validation score and other metrics.
+   - Choose the best-performing model.
+
+**Hyperparameter Tuning:**
+   - Use grid search cv and random search cv to tune the hyperparameters of the model and improve its performance.
+
+**Model Testing:**
+   - Use the test dataset to evaluate the final model's generalization performance.
+
+**Deployment and Interface:**
+   - Deploy the trained model in a production environment, considering scalability and performance.
+
+## Architecture Diagram
+![Architecture](./images/image4.png)
+
+## Result
+![Result](./images/image5.png)
+
 ## In Conclusion:
 
 The Machine Learning Disease Prediction Web App is not just a diagnostic tool; it's a holistic health companion that empowers users with insights, educational content, and a user-friendly interface for better health management.
