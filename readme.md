@@ -83,6 +83,9 @@ The Machine Learning Disease Prediction Web App is a comprehensive health platfo
 
 ## Result
 ![Result](./images/image5.png)
+   - It is evident from the table that SVC is performing best when it comes to accuracy but
+     we still selected Bagging(SVC) because Bagging is an ensemble technique and offers
+     less variance in comparison to SIngle SVC model and makes it more robust.
 
 ## In Conclusion:
 
